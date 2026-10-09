@@ -1,0 +1,69 @@
+{
+  "host_name": "myhost",
+  "base_dir": ".",
+  "status_url": "",
+  "telegram": {
+    "bot_token": "",
+    "chat_id": ""
+  },
+  "thresholds": {
+    "disk_pct": 90,
+    "mem_pct": 90,
+    "load_per_core": 2.0,
+    "swap_gb": 32,
+    "cert_days": 7
+  },
+  "front_doors": [
+    "example.com",
+    "www.example.com"
+  ],
+  "monitors": [
+    {
+      "name": "nightly-backup.sh",
+      "group": "Backups",
+      "what": "encrypted nightly filesystem backup",
+      "schedule": "daily 01:00 UTC",
+      "script": "/opt/backup/nightly-backup.sh",
+      "log": "/var/log/nightly-backup.log",
+      "heartbeat": "nightly-backup",
+      "every_min": 1560
+    },
+    {
+      "name": "db-backup.sh",
+      "group": "Backups",
+      "what": "database dump + upload",
+      "schedule": "daily 02:30 UTC",
+      "heartbeat": "db-backup",
+      "every_min": 1560
+    },
+    {
+      "name": "app-watchdog.sh",
+      "group": "App monitors",
+      "what": "public endpoints + worker liveness",
+      "schedule": "every 5 min",
+      "log": "/var/log/app-watchdog.log",
+      "every_min": 20
+    },
+    {
+      "name": "cert-renewal-hook.sh",
+      "group": "Monitors",
+      "what": "adds/removes DNS-01 challenge records during renewal",
+      "schedule": "certbot.timer (~every 12h)",
+      "script": "/etc/letsencrypt/renewal-hooks/deploy/cert-renewal-hook.sh"
+    }
+  ],
+  "heartbeats": {
+    "nightly-backup": {
+      "max_age_min": 1800,
+      "desc": "encrypted nightly filesystem backup (01:00)"
+    },
+    "db-backup": {
+      "max_age_min": 1800,
+      "desc": "database dump + upload (02:30)"
+    },
+    "app-watchdog": {
+      "max_age_min": 30,
+      "desc": "app watchdog (*/5 min)"
+    }
+  }
+}

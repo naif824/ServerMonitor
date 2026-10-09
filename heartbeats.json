@@ -1,0 +1,18 @@
+{
+  "nightly-backup": {
+    "max_age_min": 1800,
+    "desc": "encrypted nightly filesystem backup (01:00)"
+  },
+  "db-backup": {
+    "max_age_min": 1800,
+    "desc": "database dump + upload (02:30)"
+  },
+  "weekly-verify": {
+    "max_age_min": 11520,
+    "desc": "weekly restore verification (Sun 06:30)"
+  },
+  "app-watchdog": {
+    "max_age_min": 30,
+    "desc": "app watchdog (*/5 min)"
+  }
+}

@@ -1,0 +1,245 @@
+{
+ "host": "example-host",
+ "generated_at": "2026-01-01 00:00:00 UTC",
+ "counts": {
+  "live": 8,
+  "dormant": 2,
+  "broken": 3,
+  "info": 3
+ },
+ "abandoned": 4,
+ "categories": [
+  {
+   "key": "heartbeats",
+   "label": "Heartbeats",
+   "items": [
+    {
+     "cat": "heartbeats",
+     "name": "nightly-backup",
+     "status": "live",
+     "detail": "ok · 42m ago · encrypted nightly backup",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "heartbeats",
+     "name": "weekly-verify",
+     "status": "info",
+     "detail": "awaiting first run · weekly restore verification",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "containers",
+   "label": "Containers",
+   "items": [
+    {
+     "cat": "containers",
+     "name": "web-1",
+     "status": "live",
+     "detail": "Up 3 days · web:latest · app_default · 127.0.0.1:8080->80",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "containers",
+     "name": "worker-1",
+     "status": "broken",
+     "detail": "Exited (1) 20 minutes ago · worker:latest",
+     "abandoned": true,
+     "reason": "orphan container (not in any compose file)",
+     "meta": {
+      "image": "worker:latest",
+      "state": "exited",
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "services",
+   "label": "Systemd services",
+   "items": [
+    {
+     "cat": "services",
+     "name": "nginx",
+     "status": "live",
+     "detail": "file=enabled · active=active · vendor",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "services",
+     "name": "myapp",
+     "status": "broken",
+     "detail": "file=enabled · active=failed · local",
+     "abandoned": false,
+     "reason": "enabled but not running",
+     "meta": {
+      "file_state": "enabled",
+      "active": "failed",
+      "local": true,
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "crons",
+   "label": "Cron jobs",
+   "items": [
+    {
+     "cat": "crons",
+     "name": "backup.sh  [user crontab]",
+     "status": "info",
+     "detail": "0 1 * * * · user crontab",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "source": "user crontab",
+      "schedule": "0 1 * * *",
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "crons",
+     "name": "sync.sh  [user crontab]",
+     "status": "broken",
+     "detail": "*/5 * * * * · user crontab",
+     "abandoned": true,
+     "reason": "target missing: /opt/app/sync.sh",
+     "meta": {
+      "source": "user crontab",
+      "schedule": "*/5 * * * *",
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "nginx",
+   "label": "Nginx vhosts",
+   "items": [
+    {
+     "cat": "nginx",
+     "name": "example.com",
+     "status": "live",
+     "detail": "enabled and served",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "nginx",
+     "name": "old.example.com",
+     "status": "dormant",
+     "detail": "available but NOT enabled (orphaned)",
+     "abandoned": true,
+     "reason": "no symlink in sites-enabled",
+     "meta": {
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "certs",
+   "label": "Certificates",
+   "items": [
+    {
+     "cat": "certs",
+     "name": "example.com",
+     "status": "live",
+     "detail": "expires in 71d · example.com www.example.com",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "days": 71,
+      "referenced": true,
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "certs",
+     "name": "legacy",
+     "status": "dormant",
+     "detail": "expires in 30d · legacy.example.com",
+     "abandoned": true,
+     "reason": "not referenced by any enabled vhost",
+     "meta": {
+      "days": 30,
+      "referenced": false,
+      "scope": "local"
+     }
+    }
+   ]
+  },
+  {
+   "key": "system",
+   "label": "System health",
+   "items": [
+    {
+     "cat": "system",
+     "name": "disk /",
+     "status": "live",
+     "detail": "38% used of 80GB",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "system",
+     "name": "memory",
+     "status": "live",
+     "detail": "41% used of 16GB",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "system",
+     "name": "load",
+     "status": "live",
+     "detail": "0.42 on 4 cores",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    },
+    {
+     "cat": "system",
+     "name": "uptime",
+     "status": "info",
+     "detail": "12d",
+     "abandoned": false,
+     "reason": "",
+     "meta": {
+      "scope": "local"
+     }
+    }
+   ]
+  }
+ ],
+ "_note": "Synthetic demo data — NOT a real host. Same schema the dashboard consumes. Regenerate with make-sample.py (or --live for a real snapshot you should not commit)."
+}
