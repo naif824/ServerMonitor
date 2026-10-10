@@ -34,6 +34,7 @@ DEFAULTS = {
     },
     "front_doors": [],
     "monitors": [],
+    "expected_images": {},
     "heartbeats": {},
 }
 
@@ -101,6 +102,11 @@ def front_doors():
 def monitors():
     """Configured monitor/job entries (see config.example.json)."""
     return list(CFG.get("monitors") or [])
+
+
+def expected_images():
+    """image -> {"label","role"} for images only ever run on-demand (docker run --rm)."""
+    return dict(CFG.get("expected_images") or {})
 
 
 def heartbeats():

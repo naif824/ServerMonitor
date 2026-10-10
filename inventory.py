@@ -158,9 +158,17 @@ def discover_images():
                             f"dangling · {im.get('Size','')}",
                             True, "untagged, unreferenced image"))
         elif not in_use:
-            out.append(item("images", name, "dormant",
-                            f"unused · {im.get('Size','')} · {im.get('CreatedSince','')}",
-                            True, "no container uses this image"))
+            exp = config.expected_images().get(name)
+            if exp:
+                # image only ever run on-demand (docker run --rm) by a tool, so
+                # no container references it between runs -> not abandoned.
+                out.append(item("images", f"{name} \u2014 {exp.get('label','tool')}", "info",
+                                f"{exp.get('role','used on demand by tooling')} \u00b7 {im.get('Size','')}",
+                                False, ""))
+            else:
+                out.append(item("images", name, "dormant",
+                                f"unused \u00b7 {im.get('Size','')} \u00b7 {im.get('CreatedSince','')}",
+                                True, "no container uses this image"))
         else:
             out.append(item("images", name, "live",
                             f"{im.get('Size','')} · {im.get('CreatedSince','')}"))

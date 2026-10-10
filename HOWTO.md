@@ -72,6 +72,19 @@ Leave `front_doors` as `[]` to auto-discover domains from enabled nginx vhosts
 The dashboard and the pager read the **same** values, so they never disagree.
 After changing them, re-run `inventory.py`/`monitor.py` to refresh the pages.
 
+## Mark an on-demand tool image as expected
+
+Some images run only ephemerally (`docker run --rm …` inside a script), so no
+container references them between runs and the pane would flag them
+"abandoned". Add them to `expected_images` so they show by their job name
+instead (status `info`, never dropped):
+
+```json
+"expected_images": {
+  "alpine:latest": { "label": "volume-archiver", "role": "backup tooling — tar volumes" }
+}
+```
+
 ## Run the pager in dry mode
 
 `--dry` prints exactly what would be sent and **never sends and never records

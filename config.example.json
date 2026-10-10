@@ -52,6 +52,12 @@
       "script": "/etc/letsencrypt/renewal-hooks/deploy/cert-renewal-hook.sh"
     }
   ],
+  "expected_images": {
+    "alpine:latest": {
+      "label": "volume-archiver",
+      "role": "backup tooling — run on-demand (docker run --rm) to tar volumes"
+    }
+  },
   "heartbeats": {
     "nightly-backup": {
       "max_age_min": 1800,
